@@ -44,39 +44,19 @@ fn score_for_outcome_of_round(outcome: &str) -> i32 {
 }
 
 fn your_play_for_expected_outcome(opponents_shape: &str, outcome: &str) -> &'static str {
-    let owned_opponents_shape = opponents_shape.to_owned();
-    let owned_outcome = outcome.to_owned();
-    let mut shapes = vec!["rock", "paper", "scissors"];
-    return match outcome {
-        "Y" => {
-            let index = shapes.iter().position(|&r| r == opponents_shape).unwrap();
-            return shapes[index];
-        },
-        "Z" => {
-            let remove_index = shapes.iter().position(|x| *x == opponents_shape).unwrap();
-            shapes.remove(remove_index);
-
-            for expected_shape in shapes.iter() {
-                let expected_outcome = get_winner_for_round(opponents_shape, expected_shape);
-                if expected_outcome == 2 {
-                    return expected_shape;
-                }
-            }
-            return "";
-        },
-        _ => {
-            let remove_index = shapes.iter().position(|x| *x == opponents_shape).unwrap();
-            shapes.remove(remove_index);
-
-            for expected_shape in shapes.iter() {
-                let expected_outcome = get_winner_for_round(opponents_shape, expected_shape);
-                if expected_outcome == 1 {
-                    return expected_shape;
-                }
-            }
-            return "";
+    let shapes = vec!["rock", "paper", "scissors"];
+    for shape in shapes.iter() {
+        let outcome_for_shape = get_winner_for_round(opponents_shape, shape);
+        let expected_outcome = match outcome {
+            "X" => 1,
+            "Z" => 2,
+            _ => 0,
+        };
+        if outcome_for_shape == expected_outcome {
+            return shape;
         }
-    };
+    }
+    return "rock";
 }
 
 
