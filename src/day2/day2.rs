@@ -47,7 +47,7 @@ fn your_play_for_expected_outcome(opponents_shape: &str, outcome: &str) -> &'sta
     let owned_opponents_shape = opponents_shape.to_owned();
     let owned_outcome = outcome.to_owned();
     let mut shapes = vec!["rock", "paper", "scissors"];
-    return match owned_outcome {
+    return match outcome {
         "Y" => {
             let index = shapes.iter().position(|&r| r == opponents_shape).unwrap();
             return shapes[index];
